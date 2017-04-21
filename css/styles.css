@@ -1,0 +1,449 @@
+/* Global Styles */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Open Sans', sans-serif;
+	background-color: #07d159;
+}
+
+a {
+	text-decoration: none;
+}
+
+
+/* Layout Styles */
+
+main#main-container {
+  margin-top: 30px;
+}
+
+.sec-search {
+	text-align: center;
+}
+
+
+/* Form Elements */
+
+.form-search {
+	margin: 0 auto;
+}
+
+.row-form {
+	margin: 15px 0;
+}
+
+input:focus {
+	color: #424242;
+	border: 2px solid #add8e6;
+	background-color: #ffffe0;
+}
+
+input[type="radio"] {
+	display: none;
+}
+
+input[type="radio"] + label {
+	color: #514a45;
+	font-size: 0.9em;
+}
+
+input[type="radio"] + label span {
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	margin: -4px 10px 0 0;
+	vertical-align: middle;
+	background: #DFDFE0;
+	border-radius: 50%;
+}
+
+input[type="radio"]:checked + label span {
+	background: url('../images/radio-button.png') no-repeat;
+	background-color: #efe8e8;
+}
+
+label[for="search_artist"] {
+	margin-right: 15px;
+}
+
+input[type="search"] {
+	-webkit-appearance: none;
+	width: 275px;
+	height: 40px;
+	min-height: 40px;
+	box-sizing: content-box;
+	border-radius: 10px !important;
+	font-size: 16px;
+	text-align: center;
+	border: 1px solid #d3d3d3;
+	border-radius: 3px;
+	padding: 5px 15px;
+	background: rgba(255,255,255,0.8);
+	transition: background-color 1s ease-in-out;
+}
+
+.form-sort {
+	width: 100px;
+	margin-top: 10%;
+}
+
+.form-sort,
+.instructions {
+	display: none;
+}
+
+.styled-select {
+	background: url('../images/chev-down-2.jpg') no-repeat right 12px;
+	background-color: #8a8a8c;
+	padding: 8px 15px;
+	height: 40px;
+	margin: 0 0 4px;
+	border-radius: 3px;
+	width: 275px;
+	overflow: hidden;
+	background-size: 30px;
+}
+
+select {
+	-webkit-appearance: none;
+	font-size: .9em;
+	color: #fff;
+	margin-top: -20px;
+	font-weight: 300;
+	background: transparent;
+	width: 130%;
+	box-shadow: none;
+	border: none;
+}
+
+.btn-search {
+	width: 150px;
+	height: 40px;
+	margin-top: 15px;
+	background: #000;
+	border: 1px solid #07d159;
+	border-radius: 10px;
+	color: #07d159;
+	font-size: 1.2em;
+	font-weight: 300;
+	cursor: pointer;
+}
+
+input:invalid,
+input:-moz-submit-invalid,
+input:-moz-ui-invalid {
+	box-shadow: none !important; /* FF - Remove red shadow that appears after form submit */
+}
+
+.errors {
+	margin-top: 30px;
+	background: #d609b8;
+	width: 245px;
+	margin: 30px auto 0;
+	padding: 10px;
+	color: #fff;
+	border-radius: 10px;
+	display: none;
+}
+
+/* Headings & Text Styles */
+
+.title-search {
+	font-size: 1.8em;
+	text-transform: uppercase;
+	font-weight: 300;
+	color: #fff;
+	text-align: center;
+	margin-top: 3%;
+	margin-bottom: 0;
+}
+
+.sub-title {
+	color: #fff;
+	font-size: .9em;
+	font-weight: 300;
+	text-align: center;
+	margin: 10px;
+}
+
+.instructions {
+	color: #fff;
+	font-size: 0.9em;
+	margin: 30px 0;
+}
+
+.footer-text {
+	position: absolute;
+	bottom: 5%;
+	left: calc(50% - 94px);
+	color: #dedede;
+	text-transform: uppercase;
+	padding: 5px;
+	border: 1px solid #dedede;
+	font-size: 0.7em;
+}
+
+
+/* Cover Styles */
+
+.cover-display {
+	width: 100%;
+  margin: 0 auto;
+	padding: 0 5%;
+}
+
+ul.covers-list {
+	list-style: none;
+	margin-top: 5%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 0;
+}
+
+li.cover {
+	overflow: hidden;
+	cursor: pointer;
+	margin-right: 5px;
+}
+
+.album img {
+	width: 275px;
+	height: 275px;
+	border-radius: 50%;
+	border: 5px solid #514a45;
+	margin-bottom: 5%;
+}
+
+.book img {
+	width: 240px;
+	height: 380px;
+}
+
+li img[src*="undefined"] {
+	background-image: url('../images/no-cover-available.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-right: 1px solid #b6b4b4;
+}
+
+.cover h4,
+.cover h5,
+.cover h6 {
+	display: none;
+}
+
+
+/* Overlay Styles */
+
+#overlay {
+	background: rgba(53, 53, 53, 0.98);
+	height: 100%;
+	min-height: 800px;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+	display: none;
+}
+
+#overlay img {
+	margin: 100px auto 20px;
+	display: block;
+}
+
+#overlay.ol-albums img {
+	width: 94%;
+	max-width: 450px;
+}
+
+#overlay.ol-books img {
+	width: 240px;
+  max-height: 370px;
+}
+	
+#overlay img[src*="undefined"] {
+	background-image: url('../images/no-cover-available.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 300px;
+}
+
+.lb-image {
+	display: none;
+}
+
+#overlay h4 {
+	color: #fff;
+	font-size: 1em;
+	font-weight: 400;
+	margin: 0 10px 5px;
+}
+
+#overlay h5 {
+	color: #fff;
+	font-size: 0.9em;
+	margin-top: 0;
+	text-transform: uppercase;
+	font-weight: 300;
+}
+
+#overlay h6 {
+	color: #fff;
+	font-size: 0.85em;
+	font-weight: 300;
+	margin-top: 10px;
+}
+
+a.arrow {
+	display: none;
+}
+
+.fa {
+	position: absolute;
+	top: 4%;
+	color: #fff;
+	cursor: pointer;
+	padding: 10px;
+	z-index: 1000;
+}
+
+i.fa.fa-chevron-left {
+	left: 35%;
+}
+
+i.fa.fa-chevron-right {
+	right: 35%;
+}
+
+i.fa.fa-chevron-left,
+i.fa.fa-chevron-right {
+	font-size: 2.2em;
+}
+
+
+/* ========================================================
+		MEDIA QUERIES
+======================================================== */
+
+@media screen and (min-width: 768px) {
+	
+	.errors {
+		width: 400px;
+	}
+	
+	.form-sort {
+		margin-top: 5%;
+	}
+	
+	#overlay h4 {
+		font-size: 1.2em;
+	}
+
+	#overlay h5,
+	#overlay h6 {
+		font-size: 1em;
+	}
+	
+	#overlay img {
+		margin-top: 140px;
+	}
+	
+	#overlay img[src*="undefined"] {
+		height: 475px;
+	}
+
+	
+}
+
+
+@media screen and (min-width: 1024px) {
+	
+	.title-search {
+		font-size: 4em;
+	}
+
+	.sub-title {
+		font-size: 1.2em;
+	}
+	
+/*
+	#overlay img[src*="undefined"] {
+		background-image: url('../images/no-cover-available.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		height: 475px;
+	}
+*/
+	
+	#overlay img { 
+		margin-top: 10%; 
+		margin-bottom: 2%; 
+	}
+	
+	.fa { 
+		top: 335px; 
+	} 
+	
+	i.fa.fa-chevron-left { 
+		left: 2%; 
+	}
+	
+	i.fa.fa-chevron-right { 
+		right: 2%;
+	}
+	
+}
+
+
+@media screen and (min-width: 1280px) {
+	
+	i.fa.fa-chevron-left { 
+		left: 10%; 
+	}
+	
+	i.fa.fa-chevron-right { 
+		right: 10%; 
+	}
+	
+	.fa {	
+		top: 310px; 
+	}
+	
+	#overlay img { 
+		margin-top: 5%; 
+	}
+	
+}
+
+
+@media screen and (min-width: 1440px) {
+	
+	i.fa.fa-chevron-left { 
+		left: 12%; 
+	}
+	
+	i.fa.fa-chevron-right { 
+		right: 12%; 
+	}
+	
+}
+
+
+@media screen and (min-width: 1600px) {
+
+	i.fa.fa-chevron-left { 
+		left: 16%; 
+	}
+	
+	i.fa.fa-chevron-right { 
+		right: 16%; 
+	} 
+	
+}

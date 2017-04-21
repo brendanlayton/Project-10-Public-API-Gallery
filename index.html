@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+		<link href="css/normalized.css" rel="stylesheet" type="text/css" />
+		<link href="css/styles.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<title>Public API Gallery</title>
+  </head>
+
+  <body>
+		
+		<!-- Page header -->
+		<header>
+			<h1 class="title-search">Album &amp; Book Covers</h1>
+			<h4 class="sub-title">Search for your favourite artist or author to see their cover artwork</h4>
+		</header>
+		
+		<!-- Main content container -->
+		<main id="main-container">
+				
+			<!-- Search box-->
+			<section class="sec-search">
+				<form class="form-search">
+					<div class="row-form">
+						<input type="radio" id="search_artist" value="search_artist" name="search_covers" checked="checked"><label for="search_artist"><span></span>Search by Artist</label>
+						<input type="radio" id="search_author" value="search_author" name="search_covers"><label for="search_author"><span></span>Search by Author</label>
+					</div>
+					<div class="row-form">
+						<input type="search" name="search" id="coverSearch" placeholder="Enter artist or band name" aria-required="true" required>
+					</div>
+					<div class="row-form">
+					<button type="submit" class="btn-search">Search</button>
+					</div>	
+					<div class="row-form errors">
+					</div>
+				</form>
+			</section>
+			
+			<!-- Cover display section -->
+			<section class="cover-display">
+				
+				<!-- Sort by form -->
+				<form class="form-sort">
+					<div class="styled-select">
+						<select id="albumSort" name="album_sort">
+							<option value="choose">Sort by:</option>
+							<option value="albumName">Album Name</option>
+						</select>
+						<select id="bookSort" name="book_sort">
+							<option value="choose">Sort by:</option>
+							<option value="bookName">Book Name</option>
+						</select>
+					</div>
+				</form>
+				
+				<!-- Instructions -->
+				<div class="instructions">
+					<p>Click/tap on the covers for more information.</p>
+				</div>
+				
+				<!-- Cover display -->
+				<div id="albumCovers"></div>
+				<div id="bookCovers"></div>
+				
+			</section>
+			
+			<!-- Footer -->
+			<footer>
+				<p class="footer-text">Powered by Spotify &amp; Open Library</p>
+			</footer>
+			
+		</main>
+		
+		<!-- Scripts -->
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		
+  </body>
+</html>
