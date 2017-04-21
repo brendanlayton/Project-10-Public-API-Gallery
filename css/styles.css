@@ -199,7 +199,7 @@ input:-moz-ui-invalid {
 
 ul.covers-list {
 	list-style: none;
-	margin-top: 5%;
+	margin-top: 40px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
