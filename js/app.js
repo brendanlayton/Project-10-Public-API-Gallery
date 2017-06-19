@@ -2,9 +2,9 @@
 
 var $overlay = $('<div id="overlay"></div>');
 var $image = $('<img class="lb-image">');
-var $albumName = $('<h4></h4>');
-var $albumType = $('<h5></h5>');
-var $albumMarkets = $('<h6></h6>');
+//var $albumName = $('<h4></h4>');
+//var $albumType = $('<h5></h5>');
+//var $albumMarkets = $('<h6></h6>');
 var $bookName = $('<h4></h4>');
 var $bookEditions = $('<h6></h6>');
 var $arrowLeft = $('<a class="arrow previous" href="#"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>');
@@ -284,7 +284,7 @@ $('.form-search').submit(function (evt) {
 		// Callback function
 	
 		function getBookCovers(data) {
-			albumHTML += "";
+			//albumHTML += "";
 			bookHTML += '<ul class="covers-list">';
 
 			// Check if search query matches data in JSON file, if not return an error
@@ -313,17 +313,17 @@ $('.form-search').submit(function (evt) {
 				});
 			
 				bookHTML += '</ul>';
-				albumHTML += "";
+				//albumHTML += "";
 				
 			// Display elements appropriate to successful search
 				
 				$('.errors').hide();
 				$('.form-sort').show();
 				$('#bookSort').show().val('choose');
-				$('#albumSort').hide();
+				//$('#albumSort').hide();
 				$('.instructions').show();
 				$('#bookCovers').show().html(bookHTML);
-				$('#albumCovers').html(albumHTML);
+				//$('#albumCovers').html(albumHTML);
 				$('.footer-text').hide();
 				$searchField.val("").prop('disabled', false);
 				$searchButton.attr('disabled', false).text('Search');
@@ -339,7 +339,7 @@ $('.form-search').submit(function (evt) {
 				$('.errors').show();
 				$('.form-sort').hide();
 				$('.instructions').hide();
-				$('#bookCovers, #albumCovers').hide();
+				$('#bookCovers').hide();
 				$('.footer-text').show();
 				$searchField.prop('disabled', false);
 				$searchButton.attr('disabled', false).text('Search');
@@ -370,7 +370,7 @@ $('.form-search').submit(function (evt) {
 			
 			$('.cover img').click(function(evt) { 
 				evt.preventDefault();
-				$overlay.addClass('ol-books').removeClass('ol-albums');
+				$overlay.addClass('ol-books');
 				var $coverLocation = $(this).attr('src');
 				var $bookName = $(this).next().text();
 				var $bookEditions = $(this).next().next().text();
