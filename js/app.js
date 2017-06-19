@@ -30,18 +30,18 @@ $overlay.append($arrowRight);
 
 // Search box placeholder text
 
-$( 'input[name="search_covers"]' ).click(function() {
-	if ( $('[value="search_artist"]').is(':checked') ) {
-		$('#coverSearch').attr("placeholder", "Enter artist or band name");
-		} else {
-			$('#coverSearch').attr("placeholder", "Enter author's name");
-		}
-});
+//$( 'input[name="search_covers"]' ).click(function() {
+//	if ( $('[value="search_artist"]').is(':checked') ) {
+//		$('#coverSearch').attr("placeholder", "Enter artist or band name");
+//		} else {
+//			$('#coverSearch').attr("placeholder", "Enter author's name");
+//		}
+//});
 
 
 // Book and Album Sorter
 
-$( '#albumSort, #bookSort' ).change(function() {
+$( '#bookSort' ).change(function() {
 var covers = $('.covers-list');
 var	coversLi = covers.children('li');
   coversLi.sort(function(a,b) {
@@ -84,7 +84,7 @@ $overlay.click(function(event) {
 
 $('.form-search').submit(function (evt) {
   evt.preventDefault();
-	var albumHTML = "";
+	//var albumHTML = "";
 	var bookHTML = "";
 
 	
@@ -99,183 +99,183 @@ $('.form-search').submit(function (evt) {
 	// ======================================================
 	
 	
-	if ($('input[value="search_artist"]').is(':checked')) {
-		var query = $searchField.val();
-		var url = 'https://api.spotify.com/v1/search';
-		var spotifyData = {
-				q: query,
-				type: 'album' 
-		};
-
-		// Callback function
-		
-		function getAlbumCovers(data) {
-			albumHTML += '<ul class="covers-list">';
-			
-			// Check if search query matches data in JSON file, if not return an error
-			
-			if (data.albums.items.length > 0 ) { // query matches items in JSON data
-				
-				// Loop throught JSON Object
-				$.each( data.albums.items, function(i, album) {
-					albumHTML += '<li class="cover album"'  + 'data-name="' + album.name + '">';
-					albumHTML += '<img src="' + album.images[0].url + '">';
-					albumHTML += '<h4 class="album-name">' + album.name + '</h4>';
-					albumHTML += '<h5 class="album-type">' + album.album_type + '</h5>';
-					albumHTML += '<h6 class="markets">' + 'Available in ' + album.available_markets.length + ' countries' + '</h6>';
-					albumHTML += '</li>';
-				}); 
-				
-				albumHTML += '</ul>';
-				bookHTML += "";
-			
-				// Display elements appropriate to successful search
-			
-				$('.errors').hide();
-				$('.form-sort').show();
-				$('#albumSort').show().val('choose');
-				$('#bookSort').hide();
-				$('.instructions').show();
-				$('#albumCovers').show().html(albumHTML);
-				$('#bookCovers').html(bookHTML);
-				$('.footer-text').hide();
-				$searchField.val("").prop('disabled', false);
-				$searchButton.attr('disabled', false).text('Search');
-				
-			} else { // query doesn no match items in JSON data
-				
-				// Display elements appropriate to unsuccessful search
-				
-				var errorHTML = '<p>';
-				errorHTML += 'No artist or band by that name was found.';
-				errorHTML += ' Check the spelling is correct before trying again.';
-				$('.errors').html(errorHTML);
-				$('.errors').show();
-				$('.form-sort').hide();
-				$('.instructions').hide();
-				$('#albumCovers, #bookCovers').hide();
-				$('.footer-text').show();
-				$searchField.prop('disabled', false);
-				$searchButton.attr('disabled', false).text('Search');
-			}
-			
-			
-			// Gallery Navigation Functionality
-
-			var $index = 0;
-			var $galleryLengthMax = $('.covers-list li').length - 1;
-
-			// 1. Content update function
-
-			function updateContent($coverLocation, $albumNameText, $albumTypeText, $ablumMarketsText) {
-				$overlay.show();
-				$('a.arrow').show();
-				$albumName.text($albumNameText).show();
-				$albumType.text($albumTypeText).show();
-				$albumMarkets.text($ablumMarketsText).show();
-				$bookName.hide();
-				$bookEditions.hide();
-				$image.attr('src', $coverLocation);
-				$('#overlay img').show();
-			}
-
-			// 2. Show overlay on image thumbnail click
-
-			$('.cover img').click(function(evt) { 
-				evt.preventDefault();
-				$overlay.addClass('ol-albums').removeClass('ol-books');
-				var $coverLocation = $(this).attr('src');
-				var $albumName = $(this).next().text();
-				var $albumType = $(this).next().next().text();
-				var $albumMarkets = $(this).next().next().next().text();
-
-				// Update index
-				//$index = $(this).parent().parent().index();
-				$index = $(this).parent().index();
-
-				// Update album content
-				updateContent($coverLocation, $albumName, $albumType, $albumMarkets);
-
-				// Scroll to the top of the page
-				goToTop();
-
-			});
-
-			// 3. Function to update the $index variable and use it to retrieve new content
-
-			function prevNext(prev) {
-				// The above sets prev to true
-
-				// if prev not true add 1 to $index, i.e. move forward, else take one away from $index, i.e. move backwards
-
-				if (!prev) {
-					++$index; // increase the $index variable by one
-				} else {
-					--$index; // decrease the $index variable by one 
-				}
-
-				// Reset the value of $index if its value moves outside the index range. 
-				// The variable $galleryLengthMax is used to accommodate the varying length of the galleries.
-
-				if ($index < 0) {
-					$index = $galleryLengthMax;
-				} 
-				if ($index > $galleryLengthMax) {
-					$index = 0;
-				}
-
-				// Get the new cover using the index variable to locate it
-				var $newCover = $('.covers-list li').get($index).getElementsByTagName('img');
-
-				// Get the src url of the new cover
-				var $coverLocation = $($newCover).attr('src');
-
-				// Get new cover details
-				var $albumName = $($newCover).next().text();
-				var $albumType = $($newCover).next().next().text();
-				var $albumMarkets = $($newCover).next().next().next().text();
-
-				//Update content
-
-				updateContent($coverLocation, $albumName, $albumType, $albumMarkets);
-
-			}
-
-			// 4. Add click events to arrows using the prevNext function
-
-			$('i.fa.fa-chevron-left').click(function(event) {
-				prevNext(true);
-			});
-			$('i.fa.fa-chevron-right').click(function(event) {
-				prevNext(); 
-			});
-
-
-			// 5. Add the ability to navigate with left and right keys on keyboard
-
-			$('body').keydown(function(event) {
-
-				// makes sure keyboard navigation only works when overlay is open
-
-				if(event.keyCode === 37 && $('#overlay').css('display') === 'block') { // left
-					prevNext(true);
-				} else if (event.keyCode === 39 && $('#overlay').css('display') === 'block') { // right
-					prevNext();
-				}
-
-			});
-
-		}// End callback function
-		
-		// Get JSON File
-		$.getJSON(url, spotifyData, getAlbumCovers);
+//	if ($('input[value="search_artist"]').is(':checked')) {
+//		var query = $searchField.val();
+//		var url = 'https://api.spotify.com/v1/search';
+//		var spotifyData = {
+//				q: query,
+//				type: 'album' 
+//		};
+//
+//		// Callback function
+//		
+//		function getAlbumCovers(data) {
+//			albumHTML += '<ul class="covers-list">';
+//			
+//			// Check if search query matches data in JSON file, if not return an error
+//			
+//			if (data.albums.items.length > 0 ) { // query matches items in JSON data
+//				
+//				// Loop throught JSON Object
+//				$.each( data.albums.items, function(i, album) {
+//					albumHTML += '<li class="cover album"'  + 'data-name="' + album.name + '">';
+//					albumHTML += '<img src="' + album.images[0].url + '">';
+//					albumHTML += '<h4 class="album-name">' + album.name + '</h4>';
+//					albumHTML += '<h5 class="album-type">' + album.album_type + '</h5>';
+//					albumHTML += '<h6 class="markets">' + 'Available in ' + album.available_markets.length + ' countries' + '</h6>';
+//					albumHTML += '</li>';
+//				}); 
+//				
+//				albumHTML += '</ul>';
+//				bookHTML += "";
+//			
+//				// Display elements appropriate to successful search
+//			
+//				$('.errors').hide();
+//				$('.form-sort').show();
+//				$('#albumSort').show().val('choose');
+//				$('#bookSort').hide();
+//				$('.instructions').show();
+//				$('#albumCovers').show().html(albumHTML);
+//				$('#bookCovers').html(bookHTML);
+//				$('.footer-text').hide();
+//				$searchField.val("").prop('disabled', false);
+//				$searchButton.attr('disabled', false).text('Search');
+//				
+//			} else { // query doesn no match items in JSON data
+//				
+//				// Display elements appropriate to unsuccessful search
+//				
+//				var errorHTML = '<p>';
+//				errorHTML += 'No artist or band by that name was found.';
+//				errorHTML += ' Check the spelling is correct before trying again.';
+//				$('.errors').html(errorHTML);
+//				$('.errors').show();
+//				$('.form-sort').hide();
+//				$('.instructions').hide();
+//				$('#albumCovers, #bookCovers').hide();
+//				$('.footer-text').show();
+//				$searchField.prop('disabled', false);
+//				$searchButton.attr('disabled', false).text('Search');
+//			}
+//			
+//			
+//			// Gallery Navigation Functionality
+//
+//			var $index = 0;
+//			var $galleryLengthMax = $('.covers-list li').length - 1;
+//
+//			// 1. Content update function
+//
+//			function updateContent($coverLocation, $albumNameText, $albumTypeText, $ablumMarketsText) {
+//				$overlay.show();
+//				$('a.arrow').show();
+//				$albumName.text($albumNameText).show();
+//				$albumType.text($albumTypeText).show();
+//				$albumMarkets.text($ablumMarketsText).show();
+//				$bookName.hide();
+//				$bookEditions.hide();
+//				$image.attr('src', $coverLocation);
+//				$('#overlay img').show();
+//			}
+//
+//			// 2. Show overlay on image thumbnail click
+//
+//			$('.cover img').click(function(evt) { 
+//				evt.preventDefault();
+//				$overlay.addClass('ol-albums').removeClass('ol-books');
+//				var $coverLocation = $(this).attr('src');
+//				var $albumName = $(this).next().text();
+//				var $albumType = $(this).next().next().text();
+//				var $albumMarkets = $(this).next().next().next().text();
+//
+//				// Update index
+//				//$index = $(this).parent().parent().index();
+//				$index = $(this).parent().index();
+//
+//				// Update album content
+//				updateContent($coverLocation, $albumName, $albumType, $albumMarkets);
+//
+//				// Scroll to the top of the page
+//				goToTop();
+//
+//			});
+//
+//			// 3. Function to update the $index variable and use it to retrieve new content
+//
+//			function prevNext(prev) {
+//				// The above sets prev to true
+//
+//				// if prev not true add 1 to $index, i.e. move forward, else take one away from $index, i.e. move backwards
+//
+//				if (!prev) {
+//					++$index; // increase the $index variable by one
+//				} else {
+//					--$index; // decrease the $index variable by one 
+//				}
+//
+//				// Reset the value of $index if its value moves outside the index range. 
+//				// The variable $galleryLengthMax is used to accommodate the varying length of the galleries.
+//
+//				if ($index < 0) {
+//					$index = $galleryLengthMax;
+//				} 
+//				if ($index > $galleryLengthMax) {
+//					$index = 0;
+//				}
+//
+//				// Get the new cover using the index variable to locate it
+//				var $newCover = $('.covers-list li').get($index).getElementsByTagName('img');
+//
+//				// Get the src url of the new cover
+//				var $coverLocation = $($newCover).attr('src');
+//
+//				// Get new cover details
+//				var $albumName = $($newCover).next().text();
+//				var $albumType = $($newCover).next().next().text();
+//				var $albumMarkets = $($newCover).next().next().next().text();
+//
+//				//Update content
+//
+//				updateContent($coverLocation, $albumName, $albumType, $albumMarkets);
+//
+//			}
+//
+//			// 4. Add click events to arrows using the prevNext function
+//
+//			$('i.fa.fa-chevron-left').click(function(event) {
+//				prevNext(true);
+//			});
+//			$('i.fa.fa-chevron-right').click(function(event) {
+//				prevNext(); 
+//			});
+//
+//
+//			// 5. Add the ability to navigate with left and right keys on keyboard
+//
+//			$('body').keydown(function(event) {
+//
+//				// makes sure keyboard navigation only works when overlay is open
+//
+//				if(event.keyCode === 37 && $('#overlay').css('display') === 'block') { // left
+//					prevNext(true);
+//				} else if (event.keyCode === 39 && $('#overlay').css('display') === 'block') { // right
+//					prevNext();
+//				}
+//
+//			});
+//
+//		}// End callback function
+//		
+//		// Get JSON File
+//		$.getJSON(url, spotifyData, getAlbumCovers);
 	
 		
 	// ======================================================
 	// Author Search
 	// ======================================================
 		
-	} else if ( $('input[value="search_author"]').is(':checked') ) {
+//	} else if ( $('input[value="search_author"]').is(':checked') ) {
 		
 		var authorSearch = $searchField.val();
 		var size = '-L';
@@ -452,5 +452,5 @@ $('.form-search').submit(function (evt) {
 		
 		// Get JSON File
 		$.getJSON(bookURL, getBookCovers);
-	} 
+	//} 
 });	// End Album & Book API Function
