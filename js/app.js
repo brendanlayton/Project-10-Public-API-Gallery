@@ -17,9 +17,9 @@ var $searchButton = $('.btn-search');
     
 $('body').append($overlay);
 $overlay.append($image);
-$overlay.append($albumName);
-$overlay.append($albumType);
-$overlay.append($albumMarkets);
+//$overlay.append($albumName);
+//$overlay.append($albumType);
+//$overlay.append($albumMarkets);
 $overlay.append($bookName);
 $overlay.append($bookEditions);
 $overlay.append($arrowLeft);
@@ -358,9 +358,9 @@ $('.form-search').submit(function (evt) {
 				$('a.arrow').show();
 				$bookName.text($bookNameText).show();
 				$bookEditions.text($bookEditionsText).show();
-				$albumName.hide();
-				$albumType.hide();
-				$albumMarkets.hide();
+				//$albumName.hide();
+				//$albumType.hide();
+				//$albumMarkets.hide();
 				$image.attr('src', $coverLocation);
 				$('#overlay img').show();
 			}
